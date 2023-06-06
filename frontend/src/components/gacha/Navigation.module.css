@@ -1,0 +1,9 @@
+.barLayout {
+  padding: 1rem;
+  position: fixed;
+  bottom: 0;
+}
+
+.barLayout > * + * {
+  margin: 0 1rem;
+}

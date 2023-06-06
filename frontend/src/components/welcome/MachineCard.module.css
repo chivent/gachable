@@ -1,0 +1,9 @@
+.card {
+  border: solid gray 0.1rem;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.card:hover {
+  opacity: 50%;
+}

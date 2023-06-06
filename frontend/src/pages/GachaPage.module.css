@@ -1,0 +1,5 @@
+.pageContent {
+  display: grid;
+  grid-template-rows: 10% 80% 10%;
+  height: 100%
+}

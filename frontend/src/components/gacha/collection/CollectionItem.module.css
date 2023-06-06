@@ -1,0 +1,16 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.image {
+  width: 80%;
+  height: 80%;
+  object-fit: cover;
+}
+
+.title {
+  width: 80%
+}
