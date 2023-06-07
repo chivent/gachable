@@ -2,11 +2,27 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around
+  justify-content: space-around;
+  padding: 2rem;
 }
 
 .machine {
   width: 400px;
-  height: 500px;
+  height: 90%;
   background-color: gray
+}
+
+
+@media (max-width: 500px) {
+  .layout {
+    padding: 0;
+    justify-content: center;
+  }
+
+  .machine {
+    width: 80%;
+    height: 60%;
+    background-color: gray
+  }
+
 }

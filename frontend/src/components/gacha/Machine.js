@@ -1,10 +1,12 @@
 import classes from "./Machine.module.css"
+import { useContext } from 'react'
+import UserMachineContext from '../../context/UserMachineContext'
 
 const Machine = () => { 
-  // TOOD: Send request to server on spin
+  const machineCtx = useContext(UserMachineContext)
   return <div className={classes.layout}>
     <div className={classes.machine}></div>
-    <button> Spin Machine </button>
+    <button onClick={machineCtx.spendToken}> Spin Machine </button>
   </div>
 }
 

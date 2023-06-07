@@ -25,14 +25,3 @@ button {
 .wFull{
   width: 100%;
 }
-
-.formField {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding-bottom: 0.5rem;
-}
-
-.formField label {
-  padding-bottom: 0.5rem;
-}

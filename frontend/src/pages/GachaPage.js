@@ -1,42 +1,45 @@
-import ReactDOM from 'react-dom'
 import { useLoaderData } from 'react-router-dom'
 import { useContext, useEffect, useReducer } from 'react'
 import classes from "./GachaPage.module.css"
 import Header from "../components/gacha/Header"
-import Machine from "../components/gacha/Machine"
 import Navigation from "../components/gacha/Navigation"
-import GachaModal from "../components/gacha/GachaModal"
+import Machine from "../components/gacha/Machine"
+import Collection from "../components/gacha/Collection"
+import MiniGame from "../components/gacha/MiniGame"
 import UserMachineContext from '../context/UserMachineContext'
 
-let GachaPage = (props) => {
+export let PageLayouts = {
+  machine: "MACHINE",
+  collection: "COLLECTION",
+  minigame: "MINIGAME"
+}
+
+// Do all API calls 
+// Then do all designs and replace 
+
+let GachaPage = () => {
   const machineCtx = useContext(UserMachineContext)
   const data = useLoaderData()
   useEffect(() => {
     machineCtx.initMachine(data.machine, data.tokens, data.collectedList)
-  }, [])
+  }, []) // if machine changed, then change loader???
 
-  const updateModal = (_state, action) => {
-    console.log(_state, action)
+  const showContent = (_state, action) => {
     switch (action) {
-      case "SHOW_COLLECTION": return { isOpen: true, type: "COLLECTION" }
-      case "SHOW_MINIGAME": return { isOpen: true, type: "MINIGAME" }
-      case "SHOW_SETTINGS": return { isOpen: true, type: "SETTINGS" }
-      default: return { isOpen: false, type: null }
+      case PageLayouts.collection: return <Collection />
+      case PageLayouts.minigame: return <MiniGame />
+      default: return <Machine />
     }
   }
-
-  const [modalState, dispatchModal] = useReducer(updateModal, { isOpen: false, type: null })
-  const closeModal = () => { dispatchModal(null) }
-  const showCollection = () => { dispatchModal("SHOW_COLLECTION") }
-  const showMinigame = () => { dispatchModal("SHOW_MINIGAME") }
-  const showSettings = () => { dispatchModal("SHOW_SETTINGS") }
+  const [content, dispatchContent] = useReducer(showContent, PageLayouts.machine, showContent)
 
   return (
-    <div className={classes.pageContent}>
-      {modalState.isOpen && ReactDOM.createPortal(<GachaModal type={modalState.type} closeModal={closeModal} />, document.getElementById("modal"))}
-      <Header />
-      <Machine />
-      <Navigation showCollection={showCollection} showMinigame={showMinigame} showSettings={showSettings} />
+    <div className={classes.pageLayout}>
+      <Navigation dispatchContent={dispatchContent} />
+      <div className={classes.pageContent}>
+        <Header />
+        {content}
+      </div>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import GachaPage from "./pages/GachaPage"
 import {WelcomeLoader} from "./pages/WelcomePage"
 import {MachineLoader} from "./pages/GachaPage"
 import { UserMachineContextProvider } from './context/UserMachineContext'
+import { WindowContextProvider } from './context/WindowContext'
 
 let App = () => {
   const router = createBrowserRouter([
@@ -22,9 +23,11 @@ let App = () => {
   ])
 
   return (
-    <UserMachineContextProvider>
-      <RouterProvider router={router}/>
-    </UserMachineContextProvider>
+    <WindowContextProvider>
+      <UserMachineContextProvider>
+        <RouterProvider router={router}/>
+      </UserMachineContextProvider>
+    </WindowContextProvider>
   );
 }
 

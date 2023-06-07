@@ -1,5 +1,17 @@
+.pageLayout {
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  height: 100%;
+  overflow: hidden;
+}
+
 .pageContent {
   display: grid;
-  grid-template-rows: 10% 80% 10%;
-  height: 100%
+  grid-template-rows: 10% 90%;
+}
+
+@media (max-width: 450px) {
+  .pageContent {
+    grid-template-rows: 15% 85%;
+  }
 }

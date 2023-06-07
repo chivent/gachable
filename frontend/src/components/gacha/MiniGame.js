@@ -1,9 +1,9 @@
 import {Fragment} from "react"
 
-const MiniGameView = () => { 
+const MiniGame = () => { 
   return <Fragment>
     <div> Minigame </div>
   </Fragment>
 }
 
-export default MiniGameView;
+export default MiniGame;

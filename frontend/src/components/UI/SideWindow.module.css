@@ -1,0 +1,57 @@
+.backdrop {
+  width: 100%;
+  position: absolute;
+  background-color: black;
+  opacity: 50%;
+  height: 100%
+}
+
+.cardContent {
+  display: grid;
+  grid-template-rows: 2rem auto;
+  position: absolute;
+  background-color: white;
+  height: 100vh;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  z-index: 2;
+  right: 0;
+  animation-name: slideOut;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes slideOut {
+  from {right: -20rem;}
+  to {right: 0}
+}
+
+.cardHeader{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardHeader > * {
+  margin: 0;
+}
+
+.cardBody {
+  flex: 1;
+}
+
+.collapseBtn {
+  margin: 0;
+  padding: 0.25rem;
+  background-color: transparent;
+}
+
+.collapseBtn:hover {
+  background-color: lightgray;
+}
+
+@media (max-width: 450px) {
+  .cardContent {
+    width: 100%;
+  }
+}
