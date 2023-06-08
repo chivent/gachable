@@ -1,46 +1,37 @@
-import {useState, createContext} from 'react'
+import { useState, createContext } from 'react'
+import {apiSpendToken} from '../ApiRequests.js'
 
 const UserMachineContext = createContext({
   machine: {},
   collectedList: [],
-  tokens: 0,
   initMachine: () => { },
-  spendToken: () => { },
-  addToken: () => { }
+  spendToken: () => { }
 })
 
 export const UserMachineContextProvider = (props) => {
   const [machine, updateMachine] = useState({})
   const [collectedList, listHandler] = useState([])
-  const [tokens, tokenHandler] = useState(0)
 
-  const initMachine = (newMachine, tokens, collectedList) => { 
+  const initMachine = (newMachine, collectedList) => { 
     updateMachine(newMachine)
-    tokenHandler(tokens)
     listHandler(collectedList)
   }
-  
-  const addToken = () => { 
-    // Just do on react for now
-    tokenHandler((prevState) => { return prevState++})
-  }
 
-  const spendToken = () => { 
-    // TOOD: Send request -> update tokens, list
-    //     listHandler((prevState) => { 
-    //   return [newItem, ...prevState]
-    // })
-    // Renew token: tokenHandler(newTokens)
-    // Add to list: [...collected, newItem]
+  const spendToken = async (serverCtx) => { 
+    let item = null;
+    await apiSpendToken(serverCtx).then((response) => {
+      // Only place in if item is not a duplicate
+      listHandler([...collectedList, response.item])
+      item = response.item
+    })
+    return item
   }
   
   return <UserMachineContext.Provider value={{
-    tokens: tokens,
     machine: machine,
     collectedList: collectedList,
     initMachine: initMachine,
-    spendToken: spendToken,
-    addToken: addToken
+    spendToken: spendToken
   }}>
     {props.children}
   </UserMachineContext.Provider>

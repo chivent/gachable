@@ -3,10 +3,10 @@ import { useContext } from 'react'
 import UserMachineContext from '../../context/UserMachineContext'
 
 const Header = () => { 
-  const {machine, tokens} = useContext(UserMachineContext)
+  const { machine } = useContext(UserMachineContext)
   return (<div className={classes.layout}>
     <h2> {machine.name}</h2>
-    <p> Tokens x{tokens} </p>
+    <p> Tokens xInfinite </p>
   </div>)
 }
 

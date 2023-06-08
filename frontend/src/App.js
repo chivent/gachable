@@ -5,6 +5,7 @@ import GachaPage from "./pages/GachaPage"
 import {WelcomeLoader} from "./pages/WelcomePage"
 import {MachineLoader} from "./pages/GachaPage"
 import { UserMachineContextProvider } from './context/UserMachineContext'
+import { MockServerContextProvider } from './context/MockServerContext'
 import { WindowContextProvider } from './context/WindowContext'
 
 let App = () => {
@@ -24,9 +25,11 @@ let App = () => {
 
   return (
     <WindowContextProvider>
-      <UserMachineContextProvider>
-        <RouterProvider router={router}/>
-      </UserMachineContextProvider>
+      <MockServerContextProvider>
+        <UserMachineContextProvider>
+          <RouterProvider router={router}/>
+        </UserMachineContextProvider>
+      </MockServerContextProvider>
     </WindowContextProvider>
   );
 }
