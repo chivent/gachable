@@ -13,8 +13,8 @@ const Collection = () => {
     {windowContent && createPortal(windowContent, document.getElementById("overlay"))}
     <div className={classes.list}>
       {
-        collectedList.map(item => { 
-          return (<CollectionItem key={item.id} item={item}/>)
+        Object.entries(collectedList).map(([id, item]) => { 
+          return (<CollectionItem key={id} item={item}/>)
         })
       }
     </div>

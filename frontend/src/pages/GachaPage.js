@@ -20,9 +20,11 @@ export const PageLayouts = {
 
 const GachaPage = () => {
   const machineCtx = useContext(UserMachineContext)
+  const serverCtx = useContext(MockServerContext)
   const data = useLoaderData()
   useEffect(() => {
-    machineCtx.initMachine(data.machine, data.collectedList)
+    machineCtx.initMachine(data.userMachine)
+    serverCtx.storeInit(data.itemIds)
   }, []) 
 
   const showContent = (_state, action) => {
@@ -46,8 +48,7 @@ const GachaPage = () => {
 }
 
 export const MachineLoader = (request) => {
-  const serverCtx = useContext(MockServerContext)
-  return apiRetrieveProgress(serverCtx, request.params.id)
+  return apiRetrieveProgress(request.params.id, "machineURL")
 }
 
 export default GachaPage

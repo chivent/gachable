@@ -1,6 +1,6 @@
 .list {
   display: grid;
-  grid-template-columns: repeat(6, auto);
+  grid-template-columns: repeat(6, 16.5%);
   overflow-y: auto;
   grid-auto-rows: max-content;
 }
@@ -8,13 +8,13 @@
 
 @media (max-width: 800px) {
   .list {
-    grid-template-columns: repeat(4, auto);
+    grid-template-columns: repeat(4, 25%);
   }
 }
 
 
 @media (max-width: 450px) {
   .list {
-    grid-template-columns: repeat(2, auto);
+    grid-template-columns: repeat(2, 50%);
   }
 }

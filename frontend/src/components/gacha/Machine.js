@@ -10,9 +10,8 @@ const Machine = () => {
   const machineCtx = useContext(UserMachineContext)
   const serverCtx = useContext(MockServerContext)
   const winCtx = useContext(WindowContext)
-  const spendToken = async() => { 
-    const item = await machineCtx.spendToken(serverCtx, winCtx)
-    console.log(item)
+  const spendToken = async () => { 
+    const item = await machineCtx.spendToken(serverCtx)
     winCtx.updateWindowContent(<ItemView item={item} />)
   }
   return <div className={classes.layout}>
