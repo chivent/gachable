@@ -1,5 +1,5 @@
-defmodule GachaMemoriesWeb.ErrorView do
-  use GachaMemoriesWeb, :view
+defmodule GachableWeb.ErrorView do
+  use GachableWeb, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

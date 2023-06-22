@@ -8,10 +8,10 @@
 import Config
 
 # Configures the endpoint
-config :gacha_memories, GachaMemoriesWeb.Endpoint,
+config :gachable, GachableWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: GachaMemoriesWeb.ErrorView, accepts: ~w(json), layout: false],
-  pubsub_server: GachaMemories.PubSub,
+  render_errors: [view: GachableWeb.ErrorView, accepts: ~w(json), layout: false],
+  pubsub_server: Gachable.PubSub,
   live_view: [signing_salt: "ilSv7OIK"]
 
 # Configures the mailer
@@ -21,7 +21,7 @@ config :gacha_memories, GachaMemoriesWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :gacha_memories, GachaMemories.Mailer, adapter: Swoosh.Adapters.Local
+config :gachable, Gachable.Mailer, adapter: Swoosh.Adapters.Local
 
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false

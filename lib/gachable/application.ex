@@ -1,4 +1,4 @@
-defmodule GachaMemories.Application do
+defmodule Gachable.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -9,18 +9,18 @@ defmodule GachaMemories.Application do
   def start(_type, _args) do
     children = [
       # Start the Telemetry supervisor
-      GachaMemoriesWeb.Telemetry,
+      GachableWeb.Telemetry,
       # Start the PubSub system
-      {Phoenix.PubSub, name: GachaMemories.PubSub},
+      {Phoenix.PubSub, name: Gachable.PubSub},
       # Start the Endpoint (http/https)
-      GachaMemoriesWeb.Endpoint
-      # Start a worker by calling: GachaMemories.Worker.start_link(arg)
-      # {GachaMemories.Worker, arg}
+      GachableWeb.Endpoint
+      # Start a worker by calling: Gachable.Worker.start_link(arg)
+      # {Gachable.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: GachaMemories.Supervisor]
+    opts = [strategy: :one_for_one, name: Gachable.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
@@ -28,7 +28,7 @@ defmodule GachaMemories.Application do
   # whenever the application is updated.
   @impl true
   def config_change(changed, _new, removed) do
-    GachaMemoriesWeb.Endpoint.config_change(changed, removed)
+    GachableWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

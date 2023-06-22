@@ -22,7 +22,7 @@ const WelcomePage = () => {
     <div className={classes.pageContent}>
       <div className={classes.pageTitle}>
         <p>Welcome to</p>
-        <h1>GachaMemories</h1>
+        <h1>Gachable</h1>
       </div>
 
       <div className={classes.pageBody}>

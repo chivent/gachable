@@ -1,6 +1,6 @@
-defmodule GachaMemories do
+defmodule Gachable do
   @moduledoc """
-  GachaMemories keeps the contexts that define your domain
+  Gachable keeps the contexts that define your domain
   and business logic.
 
   Contexts are also responsible for managing your data, regardless

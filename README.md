@@ -1,4 +1,4 @@
-# GachaMemories
+# Gachable
 
 To start your Phoenix server:
 

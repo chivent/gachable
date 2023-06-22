@@ -1,13 +1,13 @@
 import Config
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :gacha_memories, GachaMemoriesWeb.Endpoint,
+config :gachable, GachableWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "ZdlLNIYBihcKKVdtLMaDo/dlmyTWMxf02ld6u0+X6SdTcUkn+mBQRTT8q5nYbC88",
   server: false
 
 # In test we don't send emails.
-config :gacha_memories, GachaMemories.Mailer, adapter: Swoosh.Adapters.Test
+config :gachable, Gachable.Mailer, adapter: Swoosh.Adapters.Test
 
 # Print only warnings and errors during test
 config :logger, level: :warn

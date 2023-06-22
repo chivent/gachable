@@ -1,15 +1,15 @@
-defmodule GachaMemoriesWeb.ErrorViewTest do
-  use GachaMemoriesWeb.ConnCase, async: true
+defmodule GachableWeb.ErrorViewTest do
+  use GachableWeb.ConnCase, async: true
 
   # Bring render/3 and render_to_string/3 for testing custom views
   import Phoenix.View
 
   test "renders 404.json" do
-    assert render(GachaMemoriesWeb.ErrorView, "404.json", []) == %{errors: %{detail: "Not Found"}}
+    assert render(GachableWeb.ErrorView, "404.json", []) == %{errors: %{detail: "Not Found"}}
   end
 
   test "renders 500.json" do
-    assert render(GachaMemoriesWeb.ErrorView, "500.json", []) ==
+    assert render(GachableWeb.ErrorView, "500.json", []) ==
              %{errors: %{detail: "Internal Server Error"}}
   end
 end

@@ -1,12 +1,12 @@
-defmodule GachaMemoriesWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :gacha_memories
+defmodule GachableWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :gachable
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_gacha_memories_key",
+    key: "_gachable_key",
     signing_salt: "gA33hHrB"
   ]
 
@@ -18,7 +18,7 @@ defmodule GachaMemoriesWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :gacha_memories,
+    from: :gachable,
     gzip: false,
     only: ~w(assets fonts images frontend favicon.ico robots.txt)
 
@@ -26,7 +26,7 @@ defmodule GachaMemoriesWeb.Endpoint do
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :gacha_memories
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :gachable
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,
@@ -44,5 +44,5 @@ defmodule GachaMemoriesWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug GachaMemoriesWeb.Router
+  plug GachableWeb.Router
 end

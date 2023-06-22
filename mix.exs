@@ -1,9 +1,9 @@
-defmodule GachaMemories.MixProject do
+defmodule Gachable.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :gacha_memories,
+      app: :gachable,
       version: "0.1.0",
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -19,7 +19,7 @@ defmodule GachaMemories.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {GachaMemories.Application, []},
+      mod: {Gachable.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
