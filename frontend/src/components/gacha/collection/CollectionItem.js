@@ -1,6 +1,7 @@
 import classes from "./CollectionItem.module.css"
 import ItemView from "./ItemView"
 import WindowContext from "../../../context/WindowContext"
+import UIClasses from "../../UI/UI.module.css"
 import {useContext} from 'react'
 
 const CollectionItem = (props) => { 
@@ -10,8 +11,12 @@ const CollectionItem = (props) => {
   }
 
   return <div className={classes.item} onClick={openItemView}>
-    <img className={classes.image} src={props.item.image} />
-    <p className={classes.title}>{props.item.name}</p>
+    <div className={classes.cell}>
+      <img className={classes.image} src={props.item.image} />
+    </div>
+    <div className={classes.titleWrapper}>
+      <p className={`${classes.title} ${UIClasses.textDarkBlue}`}>{props.item.name}</p>
+    </div>
   </div>
 }
 

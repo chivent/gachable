@@ -1,19 +1,28 @@
 import classes from "./Navigation.module.css"
-import { PageLayouts } from "../../pages/GachaPage"
+import UIClasses from "../UI/UI.module.css"
+import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
+import { PageLayouts } from "../../pages/GachaPage"
 
 const Navigation = (props) => { 
-  let navigate = useNavigate()
-  const redirectToList = () => navigate(`/app`)
+  const [active, updateActive] = useState(props.page)
   const showMachine = () => { props.dispatchContent(PageLayouts.machine) }
   const showCollection = () => { props.dispatchContent(PageLayouts.collection) }
 
-  return <div className={classes.barLayout}>
+  const navigate = useNavigate()
+  const backToHome = () => { 
+    navigate("/app")
+  }
+  useEffect(() => {updateActive(props.page)}, [props.page])
+
+  return <div className={`${classes.barLayout} ${UIClasses.bgPrimary}`}>
     <div className={classes.btnGroup}>
-      <button onClick={showMachine}> M </button>
-      <button onClick={showCollection}> C</button>
+      <div className={active == PageLayouts.machine ? UIClasses.bgPrimaryLight : classes.inactive} onClick={showMachine} > <img src="/app/assets/site/machineIcon.png"/> </div>
+      <div className={active == PageLayouts.collection ? UIClasses.bgPrimaryLight : classes.inactive} onClick={showCollection}> <img src="/app/assets/site/collectionIcon.png" /> </div>
     </div>
-    <button onClick={redirectToList}> B </button>
+    <div className={classes.btnGroup}>
+      <div className={classes.inactive} onClick={backToHome}> <img src="/app/assets/site/backIcon.png" /> </div>
+    </div>
   </div>
 }
 

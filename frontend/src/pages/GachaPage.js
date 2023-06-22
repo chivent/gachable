@@ -1,6 +1,7 @@
 import { useLoaderData } from 'react-router-dom'
 import { useContext, useEffect, useReducer } from 'react'
 import classes from "./GachaPage.module.css"
+import UIClasses from "../components/UI/UI.module.css"
 
 import Header from "../components/gacha/Header"
 import Navigation from "../components/gacha/Navigation"
@@ -27,18 +28,19 @@ const GachaPage = () => {
 
   const showContent = (_state, action) => {
     switch (action) {
-      case PageLayouts.collection: return <Collection />
-      default: return <Machine />
+      case PageLayouts.collection: return { page: PageLayouts.collection, body: <Collection /> }
+      default: return { page: PageLayouts.machine, body: <Machine /> }
     }
   }
   const [content, dispatchContent] = useReducer(showContent, PageLayouts.machine, showContent)
-
+  
   return (
-    <div className={classes.pageLayout}>
-      <Navigation dispatchContent={dispatchContent} />
-      <div className={classes.pageContent}>
-        <Header />
-        {content}
+    <div className={`${classes.pageLayout} ${UIClasses.bgBase}`}>
+      <Navigation dispatchContent={dispatchContent} page={content.page} />
+      <div className={classes.pageBody}>    
+        <div id="loader-overlay" className={classes.loaderOverlay}></div>    
+        <Header page={content.page}/>
+        {content.body}
       </div>
     </div>
   );

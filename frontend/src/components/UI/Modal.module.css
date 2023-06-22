@@ -1,0 +1,65 @@
+.backdrop {
+  width: 100%;
+  position: absolute;
+  background-color: black;
+  opacity: 65%;
+  height: 100%;
+  z-index: 4;
+  overflow-y: hidden;
+}
+
+.cardContent {
+  display: grid;
+  grid-template-rows: 4rem auto;
+  position: absolute;
+  background-color: #FFFDF5;;
+  width: 50%;
+  max-height: 80%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 4;
+  right: 0;
+  left: 0;
+  top: 0%;
+  bottom: 0;
+  margin: auto;
+}
+
+.cardHeader{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  color: white;
+}
+
+.cardHeader > * {
+  margin: 0;
+}
+
+.cardBody {
+  flex: 1;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.collapseBtn {
+  margin: 0;
+  padding: 0.25rem;
+  font-weight: bold;
+  font-size: 1.25rem;
+  background-color: transparent;
+  cursor: pointer
+}
+
+.collapseBtn:hover {
+  opacity: 0.8
+}
+
+@media (max-width: 500px) {
+  .cardContent {
+    width: 80%;
+  }
+}

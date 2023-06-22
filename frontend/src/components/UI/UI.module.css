@@ -25,3 +25,35 @@ button {
 .wFull{
   width: 100%;
 }
+
+.bgBase {
+  background-color: #F0FFFE;
+}
+
+.bgPrimary {
+  background-color: #6799E4;
+}
+
+.textPrimary {
+  color: #6799E4;
+}
+
+.bgPrimaryLight {
+  background-color: #9ACFFF;
+}
+
+.textSecondary {
+  color: #E4676E
+}
+
+.bgSecondary {
+  background-color: #E4676E
+}
+
+.textDarkBlue {
+  color: #5D60A7
+}
+
+.textHelp {
+ color: #9AC1CD
+}

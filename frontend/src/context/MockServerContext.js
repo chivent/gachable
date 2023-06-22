@@ -111,6 +111,7 @@ export const mockFetch = (serverCtx = null, requestType, {body}) => {
     case "RETRIEVE": return new Promise((resolve) => resolve(ServerRetrieveProgress(body)))
     case "SPEND": return new Promise((resolve) => resolve(ServerSpendToken(serverCtx)))
     case "LIST": return new Promise((resolve) => resolve(ServerGetCollectionItems(serverCtx)))
+    default: return null
   }
 }
 

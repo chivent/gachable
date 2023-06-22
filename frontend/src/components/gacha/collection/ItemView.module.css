@@ -1,20 +1,43 @@
 .image {
-  width: 75%;
+  width: 100%;
+  max-height: 60vh;
+  display: flex;
+  justify-content: center;
+}
+
+.image > img {
   object-fit: cover;
+  width: 100%;
+  padding: 1rem;
 }
 
 .content {
-  display: flex;
+  padding: 0 1.5rem;
   height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.amount{
+  padding-bottom: 1rem;
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+}
+
+.description {
+  padding-bottom: 2.5rem;
+  width: 80%;
+  white-space: pre-line;
+}
+
+.stats {
+  padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-}
-
-.content > * {
-  margin: 0.75rem 0;
-}
-
-.title {
-  margin: 0;
 }

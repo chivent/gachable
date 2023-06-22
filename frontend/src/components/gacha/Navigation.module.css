@@ -1,18 +1,26 @@
 .barLayout {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  background-color: gray;
+  justify-content: space-between
 }
 
 .btnGroup {
-  margin-top: 0.5rem;
   display: flex;
   flex-direction: column;
   align-content: center;
 }
 
-button {
-  margin: 0.5rem 1rem;
+.btnGroup > div {
+  display: flex;
+  justify-content: center;
+  padding: 1.25rem 0;
+  cursor: pointer;
 }
 
+.btnGroup > .inactive:hover {
+  background-color: #5782c2;
+}
+
+.btnGroup > div > img {
+  width: 50%;
+}

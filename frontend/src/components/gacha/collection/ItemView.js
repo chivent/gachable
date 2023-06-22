@@ -1,16 +1,16 @@
-import SideWindow from "../../UI/SideWindow"
+import Modal from "../../UI/Modal"
+import UIClasses from "../../UI/UI.module.css"
 import classes from "./ItemView.module.css"
 
-const ItemView = ({ item }) => {
-  return <SideWindow>
+const ItemView = ({ prefix, item }) => {
+  return <Modal title={`${prefix || ""}${item.name}`}>
     <div className={classes.content}>
-      {item.image && <img className={classes.image} src={item.image} />}
-      <h2 className={classes.title}>{item.name}</h2>
-      {item.amount > 0 && <div className={`${classes.amount}`}> x{item.amount} Collected </div>}
-      <div> {item.description} </div>
+      {item.image && <div className={classes.image}><img src={item.image} /></div>}
+      {item.amount > 0 && <div className={`${classes.amount} ${UIClasses.textPrimary}`}> x{item.amount} Collected </div>}
+      <div className={`${classes.description} ${UIClasses.textDarkBlue}`}> {item.description} </div>
     </div>
 
-  </SideWindow>
+  </Modal>
 }
 
 export default ItemView

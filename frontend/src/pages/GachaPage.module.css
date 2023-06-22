@@ -1,13 +1,17 @@
 .pageLayout {
   display: grid;
-  grid-template-columns: 4rem 1fr;
-  height: 100%;
-  overflow: hidden;
+  grid-template-columns: 3.5rem 1fr;
+  height: 100vh;
 }
 
-.pageContent {
-  display: grid;
-  grid-template-rows: 10% 90%;
+.pageBody {
+  height: 100vh;
+}
+
+.loaderOverlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
 @media (max-width: 450px) {
