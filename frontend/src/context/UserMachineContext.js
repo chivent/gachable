@@ -19,10 +19,9 @@ export const UserMachineContextProvider = (props) => {
 
   const spendToken = async (serverCtx) => { 
     let item = null;
-    await apiSpendToken(serverCtx).then(([id, newItem]) => {
-      // Only place in if item is not a duplicate
+    await apiSpendToken(serverCtx).then(([collected, newItem]) => {
       listHandler((prevState) => {
-        prevState[id] = newItem
+        prevState[collected.id] = collected
         return prevState;
       })
       item = newItem

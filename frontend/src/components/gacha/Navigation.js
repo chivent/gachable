@@ -7,13 +7,11 @@ const Navigation = (props) => {
   const redirectToList = () => navigate(`/app`)
   const showMachine = () => { props.dispatchContent(PageLayouts.machine) }
   const showCollection = () => { props.dispatchContent(PageLayouts.collection) }
-  const showMinigame = () => { props.dispatchContent(PageLayouts.minigame) }
 
   return <div className={classes.barLayout}>
     <div className={classes.btnGroup}>
       <button onClick={showMachine}> M </button>
       <button onClick={showCollection}> C</button>
-      <button onClick={showMinigame}> T </button>
     </div>
     <button onClick={redirectToList}> B </button>
   </div>

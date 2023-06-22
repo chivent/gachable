@@ -33,10 +33,8 @@ const NewMachineForm = (props) => {
       <p className={formClasses.notes}>
         Any progress made on the machine will be tracked with the help of your cookies.
         <ul>
-          <li> Saved progress will be auto-deleted after 30 days of inactivity on this site. </li>
-          <li> If you delete cookies for this site, you will lose any progress made on this machine. </li>
+          <li> If you erase browser history for this site, you will lose any progress made on this machine. </li>
         </ul>
-        
       </p>
       <button className={formClasses.button}>Start Playing</button>
     </form>

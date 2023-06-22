@@ -1,28 +1,20 @@
 // A collection of HTTP requests sent to the backend server
-import {ServerRetrieveProgress} from './context/MockServerContext'
+import { mockFetch } from './context/MockServerContext'
 
-export const apiRetrieveProgress = (serverCtx, userId, machineURL) => {
+export const apiRetrieveProgress = (machineUrl) => {
+  // TODO: Add UserID?
   const params = {
     body: {
-      serverCtx,
-      machineURL,
-      userId
+      machineUrl
     }
   }
-  return serverCtx.fetch("RETRIEVE", params)
-    .then(function (response) {
-    return response
-  })
+  return mockFetch(null, "RETRIEVE", params)
 }
 
-export const apiSpendToken = (serverCtx, machineId, userId) => {
-  // Overlay progress-loader while waiting
-  const params = {
-    body: {
-      serverCtx,
-      machineId,
-      userId
-    }
-  }
-  return serverCtx.fetch("SPEND", params)
+export const apiSpendToken = (serverCtx) => {
+  return mockFetch(serverCtx, "SPEND", {})
+}
+
+export const apiGetCollection = (serverCtx) => {
+  return mockFetch(serverCtx, "LIST", {})
 }

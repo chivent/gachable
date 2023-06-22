@@ -1,96 +1,137 @@
 // A temporary file to be replaced with Elixir Server later on...
-// For now, we'll be storing user's progress within firebase as well. 
-
-// We'll also be assuming only happy path in this mock.
-
-import { createContext, useState } from "react"
+import { useState, createContext} from 'react'
+const STORAGE_NAME = "gachable-progress"
 
 // Utils
-const randomVal = () => { 
-  const myArray = new Uint32Array(10);
-  return crypto.getRandomValues(myArray)
-}
-
 const randomItem = (ids) => { 
   const rand = Math.floor(Math.random() * (Object.keys(ids).length));
   return ids[rand]
 }
 
+const getMachineId = (url) => { 
+  return hashCode(url)
+}
+
+const hashCode = (url) => {
+  var result, i, char = 0;
+  if (url.length === 0) return result;
+  for (i = 0; i < url.length; i++) {
+    char = url.charCodeAt(i);
+    result = ((result << 5) - result) + char;
+    result |= 0; // Convert to 32bit integer
+  }
+  return result;
+}
+
+// Mock Database Accessors
+const getUser = () => {
+  return JSON.parse(localStorage.getItem(STORAGE_NAME))
+}
+
+const getMachineProgress = (machineId) => { 
+  let gachableStorage = JSON.parse(localStorage.getItem(STORAGE_NAME))
+  if (!gachableStorage) {
+    localStorage.setItem(STORAGE_NAME, JSON.stringify({}))
+    return {}
+  }
+  return gachableStorage[machineId]
+}
+
+const updateMachineProgress = (machineId, data) => { 
+  let user = getUser()
+  user[machineId] = data
+  localStorage.setItem(STORAGE_NAME, JSON.stringify(user))
+}
+
+const getFromDB = async (url, sub) => { 
+  let response = await fetch(`${url}${sub}`)
+  const data = await response.json()
+  return data
+}
+
 // Server Functions
-export const ServerRetrieveProgress = async (_userId, _machineURL) => { 
-  let response = await fetch("https://gachable-play-default-rtdb.asia-southeast1.firebasedatabase.app/itemList.json")
-  const items = await response.json()
-  const itemIds = Object.keys(items)
+const ServerRetrieveProgress = async ({machineUrl: url}) => { 
+  const id = getMachineId(url)
+  const machine = await getFromDB(url, "machine.json")
+  machine["id"] = id
 
-  response = await fetch("https://gachable-play-default-rtdb.asia-southeast1.firebasedatabase.app/machine.json")
-  const machine = await response.json()
-  machine["id"] = randomVal()
-  machine["totalCount"] = itemIds.length
+  const DBItems = await getFromDB(url, "itemList.json")
+  machine["totalCount"] = Object.keys(DBItems).length
 
-  // Generate user if does not exist yet...
-  response = await fetch("https://gachable-play-default-rtdb.asia-southeast1.firebasedatabase.app/user.json")
-  let user = await response.json()
-  if (!user.collectedList) {
-    user["collectedList"] = {}
+  // Generate progress if does not exist yet...
+  let progress = getMachineProgress(id)
+  if (!progress) {
+    progress = {}
+    progress["collectedList"] = {}
+    progress["tokensSpent"] = 0
+    updateMachineProgress(id, progress)
   }
 
-  const userMachine = {
-    machine: machine, 
-    collectedList: user.collectedList
+  return {
+    userMachine: {
+      machine: machine, 
+      collectedList: progress.collectedList
+    },
+    machineUrl: url
   }
-
-  return {userMachine: userMachine, itemIds: itemIds}
 }
 
-// const ServerSpendToken = (machineId, userId) => {
-//   const myArray = new Uint32Array(10);
-//   return {
-//     item: {
-//       id: crypto.getRandomValues(myArray),
-//       name: "Object 3",
-//       description: "This is a mock object",
-//       image: "http://placekitten.com/300/300"
-//     }
-//   }
-// }
+const ServerGetCollectionItems = async ({machineId, machineUrl}) => { 
+  const DBItems = await getFromDB(machineUrl, "itemList.json")
+  let collection = {}
+  let progress = getMachineProgress(machineId)
+  await Object.entries(progress.collectedList).forEach(([key, value]) => {
+      let item = DBItems[key]
+      item.amount = value
+      collection[key] = item
+  })
+  return collection
+}
 
-const ServerSpendToken = async (serverCtx, _machineId, _userId) => {
-  let itemId = randomItem(serverCtx.itemIds)
-  let response = await fetch(`https://gachable-play-default-rtdb.asia-southeast1.firebasedatabase.app/itemList/${itemId}.json`)
-  let returnedItem = await response.json()
+const ServerSpendToken = async ({machineId, machineUrl}) => {
+  const DBItems = await getFromDB(machineUrl, "itemList.json")
+  let itemId = randomItem(Object.keys(DBItems))
+  let returnedItem = DBItems[itemId]
 
-  // TEMP: Update values in firebase for user
-  response = await fetch("https://gachable-play-default-rtdb.asia-southeast1.firebasedatabase.app/user.json")
-  let user = await response.json()
-  if (!user.collectedList) {
-    user["collectedList"] = {}
+  let progress = getMachineProgress(machineId)
+  if (itemId in progress.collectedList) {
+    progress.collectedList[itemId]++
+  } else { 
+    progress.collectedList[itemId] = 1
   }
-  user.collectedList[itemId] = returnedItem
-  response = await fetch("https://gachable-play-default-rtdb.asia-southeast1.firebasedatabase.app/user.json", { body: JSON.stringify({ collectedList: user.collectedList }), method: "PATCH"})
+  let amount = progress.collectedList[itemId]
+  progress.tokensSpent += 1
+  updateMachineProgress(machineId, progress)
   
-  return [ itemId, returnedItem]
+  return [{id: itemId, amount: amount}, returnedItem]
 }
 
-const mockFetch = (requestType, {body}) => { 
+export const mockFetch = (serverCtx = null, requestType, {body}) => { 
   switch (requestType) {
-    case "SPEND": return new Promise((resolve) => resolve(ServerSpendToken(body.serverCtx, body.userId)))
-    case "RETRIEVE": return new Promise((resolve) => resolve(ServerRetrieveProgress(body.ctx, body.userId, body.machineId)))
+    case "RETRIEVE": return new Promise((resolve) => resolve(ServerRetrieveProgress(body)))
+    case "SPEND": return new Promise((resolve) => resolve(ServerSpendToken(serverCtx)))
+    case "LIST": return new Promise((resolve) => resolve(ServerGetCollectionItems(serverCtx)))
   }
 }
 
 const MockServerContext = createContext({
-  itemIds: [],
-  updateItemIds: () => { },
-  storeInit: () => { },
-  fetch: mockFetch
+  initDB: () => { },
+  machineUrl: "",
+  machineId: ""
 })
 
 export const MockServerContextProvider = (props) => {
-  const [itemIds, updateItemIds] = useState([])
-  const storeInit = (itemIds) => { 
-    updateItemIds(itemIds)
+  const [machineUrl, updateUrl] = useState([])
+  const [machineId, updateId] = useState([])
+
+  const initDB = (url, id) => { 
+    updateUrl(url)
+    updateId(id)
   }
-  return <MockServerContext.Provider value={{itemIds, updateItemIds, storeInit, fetch: mockFetch}}>{ props.children }</MockServerContext.Provider>
+  
+  return <MockServerContext.Provider value={{ machineUrl, machineId, initDB }}>
+    {props.children}
+  </MockServerContext.Provider>
 }
 
 export default MockServerContext;
