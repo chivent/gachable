@@ -47,8 +47,7 @@ const GachaPage = () => {
 }
 
 export const MachineLoader = (request) => {
-  // TODO: Change this to id get URL...
-  return apiRetrieveProgress("https://gachable-play-default-rtdb.asia-southeast1.firebasedatabase.app/")
+  return apiRetrieveProgress(request.params.id)
 }
 
 export default GachaPage

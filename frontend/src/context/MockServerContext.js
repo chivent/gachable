@@ -24,23 +24,39 @@ const hashCode = (url) => {
 }
 
 // Mock Database Accessors
-const getUser = () => {
+const getStorage = () => {
   return JSON.parse(localStorage.getItem(STORAGE_NAME))
 }
 
+const updateStorage = (storage) => {
+  localStorage.setItem(STORAGE_NAME, JSON.stringify(storage))
+}
+const initMachineStorage = (machineUrl) => { 
+  let storage = getStorage()
+  const id = getMachineId(machineUrl)
+
+  let progress = {}
+  progress["url"] = machineUrl
+  progress["collectedList"] = {}
+  progress["tokensSpent"] = 0
+  storage[id] = progress
+
+  updateStorage(storage)
+  return id
+}
+
 const getMachineProgress = (machineId) => { 
-  let gachableStorage = JSON.parse(localStorage.getItem(STORAGE_NAME))
-  if (!gachableStorage) {
-    localStorage.setItem(STORAGE_NAME, JSON.stringify({}))
-    return {}
-  }
-  return gachableStorage[machineId]
+  return getStorage()[machineId]
+}
+
+const getMachineUrl = (machineId) => { 
+  return getStorage()[machineId]["url"]
 }
 
 const updateMachineProgress = (machineId, data) => { 
-  let user = getUser()
-  user[machineId] = data
-  localStorage.setItem(STORAGE_NAME, JSON.stringify(user))
+  let storage = getStorage()
+  storage[machineId] = data
+  updateStorage(storage)
 }
 
 const getFromDB = async (url, sub) => { 
@@ -50,22 +66,20 @@ const getFromDB = async (url, sub) => {
 }
 
 // Server Functions
-const ServerRetrieveProgress = async ({machineUrl: url}) => { 
-  const id = getMachineId(url)
+const ServerCreateMachine = async ({machineUrl}) => {
+  let id = initMachineStorage(machineUrl)
+  return id
+}
+
+const ServerRetrieveProgress = async ({machineId: id}) => { 
+  const url = getMachineUrl(id)
   const machine = await getFromDB(url, "machine.json")
   machine["id"] = id
 
   const DBItems = await getFromDB(url, "itemList.json")
   machine["totalCount"] = Object.keys(DBItems).length
 
-  // Generate progress if does not exist yet...
   let progress = getMachineProgress(id)
-  if (!progress) {
-    progress = {}
-    progress["collectedList"] = {}
-    progress["tokensSpent"] = 0
-    updateMachineProgress(id, progress)
-  }
 
   return {
     userMachine: {
@@ -74,6 +88,21 @@ const ServerRetrieveProgress = async ({machineUrl: url}) => {
     },
     machineUrl: url
   }
+}
+
+const ServerGetMachineList = async () => {
+  let storage = getStorage() 
+  if (!storage) {
+    storage = {}
+    updateStorage(storage)
+  }
+
+  return Object.entries(storage).reduce(async (acc, [id, value]) => { 
+    let itemList = await getFromDB(value.url, "itemList.json")
+    let machine = await getFromDB(value.url, "machine.json")
+    acc.push({ id: id, name: machine.name, itemsCollected: Object.keys(value.collectedList).length, totalItems: Object.keys(itemList).length })
+    return acc
+  }, [])
 }
 
 const ServerGetCollectionItems = async ({machineId, machineUrl}) => { 
@@ -106,8 +135,10 @@ const ServerSpendToken = async ({machineId, machineUrl}) => {
   return [{id: itemId, amount: amount}, returnedItem]
 }
 
-export const mockFetch = (serverCtx = null, requestType, {body}) => { 
+export const mockFetch = (requestType, {body}, serverCtx = null) => { 
   switch (requestType) {
+    case "CREATE": return new Promise((resolve) => resolve(ServerCreateMachine(body)))
+    case "MACHINES": return new Promise((resolve) => resolve(ServerGetMachineList()))
     case "RETRIEVE": return new Promise((resolve) => resolve(ServerRetrieveProgress(body)))
     case "SPEND": return new Promise((resolve) => resolve(ServerSpendToken(serverCtx)))
     case "LIST": return new Promise((resolve) => resolve(ServerGetCollectionItems(serverCtx)))

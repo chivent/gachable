@@ -8,8 +8,8 @@ const Modal = () => {
   return <Fragment>
     <div className={`${classes.backdrop} ${UIClasses.bgBase}`} onClick={winCtx.closeWindow} />
     <div className={classes.content}>
-      <img className={classes.loader} src="/app/assets/site/loadingBall.png" />
-      <p className={UIClasses.textDarkBlue}> Loading... </p>
+      <img className={classes.loader} src="/app/assets/site/loadingBall.png" alt="loader"/>
+      <p className={UIClasses.textPrimaryDark}> Loading... </p>
     </div>
   </Fragment>
 }

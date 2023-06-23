@@ -17,11 +17,11 @@ const Navigation = (props) => {
 
   return <div className={`${classes.barLayout} ${UIClasses.bgPrimary}`}>
     <div className={classes.btnGroup}>
-      <div className={active == PageLayouts.machine ? UIClasses.bgPrimaryLight : classes.inactive} onClick={showMachine} > <img src="/app/assets/site/machineIcon.png"/> </div>
-      <div className={active == PageLayouts.collection ? UIClasses.bgPrimaryLight : classes.inactive} onClick={showCollection}> <img src="/app/assets/site/collectionIcon.png" /> </div>
+      <div className={active === PageLayouts.machine ? UIClasses.bgPrimaryLight : classes.inactive} onClick={showMachine} > <img src="/app/assets/site/machineIcon.png" alt="machine"/> </div>
+      <div className={active === PageLayouts.collection ? UIClasses.bgPrimaryLight : classes.inactive} onClick={showCollection}> <img src="/app/assets/site/collectionIcon.png" alt="collection"/> </div>
     </div>
     <div className={classes.btnGroup}>
-      <div className={classes.inactive} onClick={backToHome}> <img src="/app/assets/site/backIcon.png" /> </div>
+      <div className={classes.inactive} onClick={backToHome}> <img src="/app/assets/site/backIcon.png" alt="return"/> </div>
     </div>
   </div>
 }

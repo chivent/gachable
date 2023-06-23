@@ -22,6 +22,10 @@ button {
   margin: 1rem 0;
 }
 
+.w80 {
+  width: 80%
+}
+
 .wFull{
   width: 100%;
 }
@@ -42,6 +46,10 @@ button {
   background-color: #9ACFFF;
 }
 
+.borderPrimary {
+  border-color: #9ACFFF;
+}
+
 .textSecondary {
   color: #E4676E
 }
@@ -50,8 +58,8 @@ button {
   background-color: #E4676E
 }
 
-.textDarkBlue {
-  color: #5D60A7
+.textPrimaryDark {
+  color: #5151c1
 }
 
 .textHelp {

@@ -12,10 +12,10 @@ const CollectionItem = (props) => {
 
   return <div className={classes.item} onClick={openItemView}>
     <div className={classes.cell}>
-      <img className={classes.image} src={props.item.image} />
+      <img className={classes.image} src={props.item.image} alt="item"/>
     </div>
     <div className={classes.titleWrapper}>
-      <p className={`${classes.title} ${UIClasses.textDarkBlue}`}>{props.item.name}</p>
+      <p className={`${classes.title} ${UIClasses.textPrimaryDark}`}>{props.item.name}</p>
     </div>
   </div>
 }

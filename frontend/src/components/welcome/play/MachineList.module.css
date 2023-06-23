@@ -1,0 +1,16 @@
+.howTo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.howTo > ol {
+  margin: 0;
+}
+
+.howToTitle {
+  text-align: center;
+  width: 100%;
+  font-weight: 700;
+  padding-top: 0.5rem;
+}

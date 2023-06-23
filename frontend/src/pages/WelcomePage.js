@@ -1,47 +1,56 @@
 import classes from "./WelcomePage.module.css"
-import {useState, useEffect} from 'react'
-import MachineList from '../components/welcome/MachineList'
-import NewMachineForm from '../components/welcome/NewMachineForm'
+import UIClasses from "../components/UI/UI.module.css"
+
+import {useState, useEffect, useReducer} from 'react'
 import {useLoaderData} from 'react-router-dom'
+import { apiGetMachines } from "../ApiRequests"
+
+import Navigation from '../components/welcome/Navigation'
+import Play from '../components/welcome/Play'
+import About from '../components/welcome/About'
+import Create from '../components/welcome/Create'
+
+export const PageLayouts = {
+  play: "PLAY",
+  create: "CREATE",
+  about: "ABOUT"
+}
 
 const WelcomePage = () => {
-  // TODO: Need loading page before loader data shows
   const data = useLoaderData()
 
   const [machineList, updateMachineList] = useState([])
-  useEffect(() => { updateMachineList(data) }, [])
-
-  const [ showForm, showFormHandler ] = useState(false)
-  const toggleFormVisibility = () => {
-    showFormHandler((prevState) => { 
-      return !prevState;
-    })
+  useEffect(() => {
+    updateMachineList(data)
+  }, [data])
+  
+  const showContent = (_state, action) => {
+    switch (action) {
+      case PageLayouts.create: return PageLayouts.create
+      case PageLayouts.about: return PageLayouts.about
+      default: return PageLayouts.play
+    }
   }
-
+  const [content, dispatchContent] = useReducer(showContent, PageLayouts.play, showContent)
+  
   return (
     <div className={classes.pageContent}>
       <div className={classes.pageTitle}>
-        <p>Welcome to</p>
-        <h1>Gachable</h1>
+        <img src="/app/assets/site/logo.png" alt="logo"/>
+        <p className={UIClasses.textPrimary}>A do-it-yourself gachapon</p>
+        <Navigation dispatchContent={dispatchContent} page={content} />
       </div>
-
       <div className={classes.pageBody}>
-        {!showForm && <MachineList toggleForm={toggleFormVisibility}  machines={machineList}/>}
-        {showForm && <NewMachineForm toggleForm={toggleFormVisibility} />}
+        {content === PageLayouts.play && <Play machineList={machineList} />}
+        {content === PageLayouts.create && <Create /> }
+        {content === PageLayouts.about && <About />}
       </div>
     </div>
   );
 }
 
-export const WelcomeLoader = () => { 
-  // TOOD: Replace with request
-  const mockMachines = [
-    { id: "AA", name: "Name AA", itemsCollected: 2, totalItems: 5 },
-    { id: "BB", name: "Name BB", itemsCollected: 22, totalItems: 35 }
-  ]
-
-  // TODO: Remember to throw an error on failure
-  return mockMachines
+export const WelcomeLoader = async () => { 
+  return await apiGetMachines()
 }
 
 export default WelcomePage

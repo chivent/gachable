@@ -1,0 +1,27 @@
+.link {
+  padding: 0.25rem 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1rem;
+  font-size: 0.9rem;
+}
+
+.layout {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  kerning: 15rem;
+}
+
+.divider {
+  padding: 0 0.5rem;
+}
+
+.inactive:hover {
+  opacity: 0.75;
+  cursor: pointer;
+}
+
+.active {
+  color: white;
+  cursor: default;
+}

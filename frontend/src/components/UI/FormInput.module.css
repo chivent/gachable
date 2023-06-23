@@ -7,6 +7,24 @@
 
 .formField label {
   padding-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+}
+
+.formField input {
+  background-color: #d6f5ff;
+  box-shadow: 1px 1px  rgba(167, 167, 182, 0.5),
+              1px 1px rgba(161, 161, 170, 0.5) inset;
+
+  border: none;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.formField input:focus {
+  outline-color: #6799E4;
 }
 
 .formField > .errorMessage {

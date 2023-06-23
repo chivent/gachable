@@ -1,0 +1,36 @@
+.button {
+  width: 100%;
+  margin: 0;
+  color: white;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.notes {
+  margin: 0.5rem 0;
+  padding-bottom: 1.25rem;
+  font-size: 1rem;
+}
+
+.notes > p {
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0.25rem;
+}
+
+.return {
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.title {
+  width: 100%;
+  text-align: center;
+  margin: 0 0 1rem;
+}
+
+.return:hover {
+  opacity: 0.5;
+}
