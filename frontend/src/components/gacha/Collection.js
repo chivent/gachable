@@ -16,14 +16,14 @@ const Collection = () => {
   const {windowContent} = useContext(WindowContext)
   const serverCtx = useContext(ServerContext)
 
-  const updateCollection = async () => { 
-    updateLoader(true)
-    const list = await apiGetCollection(serverCtx)
-    updateList(list)
-  }
-
-  useEffect(() => { 
+  useEffect(() => {
+    const updateCollection = async () => { 
+      updateLoader(true)
+      const list = await apiGetCollection(serverCtx)
+      updateList(list)
+    }
     updateCollection()
+
     setTimeout(() => {
       const backdrop = document.getElementsByClassName(lClasses.backdrop)[0]
       const content = document.getElementsByClassName(lClasses.content)[0]
@@ -35,7 +35,7 @@ const Collection = () => {
         }, 500)
       } 
     }, 1500)
-  }, [])
+  }, [serverCtx])
 
   return <Fragment>
     {loader && createPortal(<LoadingPage />, document.getElementById("loader-overlay"))}

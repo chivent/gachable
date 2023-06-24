@@ -27,7 +27,7 @@ const About = () => {
 
       <div>
         The platform is still under development, and I'll be working to add features and improve the play and create experience.
-        If you'd like to peruse the code or follow up on upcoming improvements, feel free to take a look at the Gachable repo.
+        If you'd like to peruse the code or follow up on upcoming improvements, feel free to take a look at the <a href="https://github.com/chivent/gachable" className={classes.textSecondary}> Github repo</a>.
       </div>
 
       <div>

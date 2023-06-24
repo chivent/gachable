@@ -1,5 +1,7 @@
 # Gachable
 
+Visit @ https://gachable-play.web.app/
+
 An application to have your own digital gachapon experience.
 If you'd like to test out the application, use https://gachable-play-default-rtdb.asia-southeast1.firebasedatabase.app/ to create a machine and play.
 

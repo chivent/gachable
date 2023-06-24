@@ -4,6 +4,7 @@ import {apiSpendToken} from '../ApiRequests.js'
 const UserMachineContext = createContext({
   machine: {},
   collectedList: [],
+  collectedCount: 0,
   initMachine: () => { },
   spendToken: () => { }
 })
@@ -11,19 +12,22 @@ const UserMachineContext = createContext({
 export const UserMachineContextProvider = (props) => {
   const [machine, updateMachine] = useState({})
   const [collectedList, listHandler] = useState([])
+  const [collectedCount, countHandler] = useState(0)
 
   const initMachine = ({ machine, collectedList }) => { 
     updateMachine(machine)
     listHandler(collectedList)
+    countHandler(Object.keys(collectedList).length)
   }
 
   const spendToken = async (serverCtx) => { 
     let item = null;
-    await apiSpendToken(serverCtx).then(([collected, newItem]) => {
-      listHandler((prevState) => {
+    await apiSpendToken(serverCtx).then(async ([collected, newItem]) => {
+      await listHandler((prevState) => {
         prevState[collected.id] = collected
         return prevState;
       })
+      countHandler(Object.keys(collectedList).length)
       item = newItem
     })
     return item
@@ -33,7 +37,8 @@ export const UserMachineContextProvider = (props) => {
     machine: machine,
     collectedList: collectedList,
     initMachine: initMachine,
-    spendToken: spendToken
+    spendToken: spendToken,
+    collectedCount: collectedCount
   }}>
     {props.children}
   </UserMachineContext.Provider>
