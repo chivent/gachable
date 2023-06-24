@@ -1,0 +1,46 @@
+.code {
+  background-color: #d6e8ee;
+  padding: 1px 6px ;
+  font-size: 0.85rem
+}
+
+.container > * {
+  margin: 0.5rem 0;
+}
+
+.chunk {
+  margin: 1.25rem 0;
+}
+
+.chunk > *{
+  margin: 0.5rem 0;
+}
+
+.chunk > ol > li {
+  margin: 0.25rem 0;
+}
+
+.title {
+  width: 100%;
+  text-align: center;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+
+.title > h2 {
+  margin: 0;
+}
+
+.container > hr, .chunk >hr {
+  border: none;
+  height: 1px;
+  background-color: #cedfe4
+}
+
+.sublist {
+  margin: 0.25rem 0;
+}
+
+.sublist > li {
+  font-size: 0.95rem;
+}

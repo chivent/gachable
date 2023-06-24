@@ -8,7 +8,7 @@ const MachineList = (props) => {
     return <div className={`${listClasses.howTo} ${UIClasses.textHelp}`}>
       <p className={listClasses.howToTitle}> It's easy to start: </p>
       <ol>
-        <li> Get a machine link, see 'Create a Machine' if you'd like to create your own. </li>
+        <li> Get a machine link, see 'Create' if you'd like to make your own. </li>
         <li> Play on a new machine by adding the machine link in form. </li>
         <li> Start spinning and collect them all! </li>
       </ol>

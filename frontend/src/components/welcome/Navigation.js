@@ -18,7 +18,7 @@ const Navigation = (props) => {
   return <div className={`${UIClasses.textPrimary} ${classes.layout}`}>
     <p className={activeFn(PageLayouts.play)} onClick={showPlay} > PLAY </p>
     <p className={classes.divider}> | </p>
-    <p className={activeFn(PageLayouts.create)} onClick={showCreate} > CREATE A MACHINE </p>
+    <p className={activeFn(PageLayouts.create)} onClick={showCreate} > CREATE </p>
     <p className={classes.divider}> | </p>
     <p className={activeFn(PageLayouts.about)} onClick={showAbout} > ABOUT </p>
   </div>

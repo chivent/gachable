@@ -8,6 +8,7 @@ import MockServerContext from "../../context/MockServerContext"
 import ItemView from "./collection/ItemView"
 
 const Machine = () => { 
+  const audio = new Audio('/app/assets/site/spin.mp3');
   const machineCtx = useContext(UserMachineContext)
   const serverCtx = useContext(MockServerContext)
   const winCtx = useContext(WindowContext)
@@ -15,8 +16,9 @@ const Machine = () => {
 
   const spendToken = async () => {
     updateSpun(true)
-    
+      audio.play()
     const item = await machineCtx.spendToken(serverCtx)
+
     await winCtx.updateWindowContent(<ItemView prefix="You got " item={item} />)
     const overlay = document.getElementById("overlay")
     if (overlay) {        
@@ -33,9 +35,9 @@ const Machine = () => {
   }
   return <div className={classes.layout}>
     {winCtx.windowContent && createPortal(winCtx.windowContent, document.getElementById("overlay"))}
-    <img className={`${classes.spinner} ${spun && classes.spun}`} src="/app/assets/site/spinner.png" onClick={spendToken} /> 
+    <img className={`${classes.spinner} ${spun && classes.spun}`} src="/app/assets/site/spinner.png" alt="spinner" onClick={spendToken} /> 
     <div className={classes.content}>
-      <img src="/app/assets/site/machine.png" className={classes.machine}/>
+      <img src="/app/assets/site/machine.png" className={classes.machine} alt="machine"/>
       <p className={`${UIClasses.textHelp} ${classes.help}`} > Click the dial to spin for a gachapon! </p>
     </div>
   </div>

@@ -21,10 +21,11 @@ const GachaPage = () => {
   const machineCtx = useContext(UserMachineContext)
   const serverCtx = useContext(MockServerContext)
   const data = useLoaderData()
+
   useEffect(() => {
     machineCtx.initMachine(data.userMachine)
     serverCtx.initDB(data.machineUrl, data.userMachine.machine.id)
-  }, []) 
+  }, [data, serverCtx]) 
 
   const showContent = (_state, action) => {
     switch (action) {

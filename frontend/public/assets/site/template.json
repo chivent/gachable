@@ -1,0 +1,17 @@
+{ 
+  "itemList": {
+    "replace_item_key": {
+      "name": "REPLACE NAME",
+      "description": "REPLACE DESCRIPTION",
+      "image": "REPLACE IMAGE LINK"
+    },
+    "replace_item_key_1": {
+      "name": "REPLACE NAME ",
+      "description": "REPLACE DESCRIPTION",
+      "image": "REPLACE IMAGE LINK"
+    }
+  },
+  "machine": {
+    "name": "REPLACE MACHINE NAME"
+  }
+}

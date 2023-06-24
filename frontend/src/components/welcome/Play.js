@@ -1,5 +1,4 @@
-import {useState} from 'react'
-import classes from "./Play.module.css"
+import {useState, Fragment} from 'react'
 
 import MachineList from './play/MachineList'
 import NewMachineForm from './play/NewMachineForm'
@@ -13,10 +12,10 @@ const Play = (props) => {
   }
 
   return (
-    <div className={classes.list}>
+    <Fragment>
       {!showForm && <MachineList toggleForm={toggleFormVisibility}  machines={props.machineList}/>}
       {showForm && <NewMachineForm toggleForm={toggleFormVisibility} />}
-    </div>
+    </Fragment>
   );
 }
 

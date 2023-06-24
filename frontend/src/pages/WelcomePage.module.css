@@ -20,6 +20,10 @@
   flex: 1;
 }
 
+.bodyContainer {
+  width: 50%
+}
+
 .pageTitle {
   display: flex;
   flex-direction: column;
@@ -36,4 +40,10 @@
 .pageTitle > * {
   padding-bottom: 0.25rem;
   margin: 0;
+}
+
+@media (max-width: 1000px) {
+  .bodyContainer {
+    width: 80%;
+  }
 }

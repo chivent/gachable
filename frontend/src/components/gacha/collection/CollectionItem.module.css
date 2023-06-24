@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  cursor: pointer;
 }
 
 .image {
@@ -11,7 +12,9 @@
 
 .title {
   width: 80%
-}.cell {
+}
+
+.cell {
   width: 12.2rem;
   height: 12.2rem;
   position: relative;

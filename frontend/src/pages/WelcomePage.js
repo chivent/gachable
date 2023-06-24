@@ -41,9 +41,11 @@ const WelcomePage = () => {
         <Navigation dispatchContent={dispatchContent} page={content} />
       </div>
       <div className={classes.pageBody}>
-        {content === PageLayouts.play && <Play machineList={machineList} />}
-        {content === PageLayouts.create && <Create /> }
-        {content === PageLayouts.about && <About />}
+        <div className={classes.bodyContainer}>
+          {content === PageLayouts.play && <Play machineList={machineList} />}
+          {content === PageLayouts.create && <Create /> }
+          {content === PageLayouts.about && <About />}
+        </div>
       </div>
     </div>
   );
