@@ -97,7 +97,8 @@ const ServerGetMachineList = async () => {
     updateStorage(storage)
   }
 
-  return Object.entries(storage).reduce(async (acc, [id, value]) => { 
+  return Object.entries(storage).reduce(async (acc, [id, value]) => {
+    await Promise.resolve(acc).then((result) => acc = result)
     let itemList = await getFromDB(value.url, "itemList.json")
     let machine = await getFromDB(value.url, "machine.json")
     acc.push({ id: id, name: machine.name, itemsCollected: Object.keys(value.collectedList).length, totalItems: Object.keys(itemList).length })
